@@ -5,7 +5,8 @@
   "description": "CrossPoint WebUI vocabulary and highlights plugin",
   "scripts": {
     "test": "node --test",
-    "check": "node --check vocabulary-highlights/plugin.js && node --test"
+    "check": "node --check vocabulary-highlights.crosspoint-plugin/plugin.js && node --test",
+    "bundle": "python tools/package_plugin.py"
   },
   "engines": {
     "node": ">=20"

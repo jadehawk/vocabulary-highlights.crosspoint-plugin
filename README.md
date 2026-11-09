@@ -1,61 +1,99 @@
-# Vocabulary & Highlights for CrossPoint
+# Vocabulary & Highlights — CrossPoint plugin
 
-An SD-card plugin for browsing previously looked-up words and saved highlights. Version **0.1.0** supports the browser-based WebUI on stock CrossPoint and Razor-Crest. A separate experimental Razor-Crest firmware adapter can additionally open an **offline, on-device read-only viewer**; stock CrossPoint continues to show the on-device README.
+An SD-card plugin for reviewing saved words and highlighted passages from CrossPoint readers. The browser WebUI works on stock CrossPoint and compatible Razor-Crest firmware. Razor-Crest additionally offers a native offline reader UI with firmware capability `ui.local-notes.v1`.
 
-## Installation
+**Release status:** Version **0.1.0**, first public release not yet published. No Internet service, account, or API key is required for normal use.
 
-Copy the complete **vocabulary-highlights/** payload folder to **/.crosspoint/plugins/vocabulary-highlights/** (recommended) or **/plugins/vocabulary-highlights/**.
+## Plugin Hub repository layout
 
-Enable **Settings → Connectivity → Plugins** on the reader. Start the device's Wi-Fi File Transfer / WebUI mode and open **Plugins → Vocabulary & Highlights** in your phone or desktop browser. On stock CrossPoint the device's plugin picker displays the README. With the optional Razor-Crest **ui.local-notes.v1** firmware adapter installed, the device picker launches a native, offline vocabulary/highlight viewer. The optional Home shortcut is shown only by firmware that supports this adapter.
+This repository follows the [official Plugin Hub publishing contract](https://github.com/crosspoint-reader/crosspoint-plugin-hub/blob/main/PLUGIN_HUB_CONTRACT.md):
 
-The plugin requires the normal CrossPoint WebUI endpoints. It needs no Internet service, API token or account; your browser communicates directly with the reader over the local network.
+```text
+vocabulary-highlights.crosspoint-plugin/
+  manifest.json
+  device.json
+  plugin.js
+  style.css
+  README.md
+  DETAILS.md
+tests/                         # development-only
+tools/                         # development/packaging
+docs/                          # development/release notes
+README.md
+CHANGELOG.md
+package.json
+```
 
-## Source files
+The repository's installable payload folder must be `vocabulary-highlights.crosspoint-plugin/` to satisfy automatic Plugin Hub discovery. Once installed, the folder is **`/.crosspoint/plugins/vocabulary-highlights/`**. **Do not rename the on-device folder** to include the `.crosspoint-plugin` suffix.
 
-The firmware writes both files to the **SD root**; the plugin does not copy or alter them:
+Plugin Hub installs only the runtime files declared in `manifest.json`, pinned to an immutable matching stable GitHub Release tag. Root-level tests, packaging scripts and developer documentation are not installed. A Release ZIP is not required for the normal standalone-repository discovery path; our optional ZIP supports manual sideloading.
 
-| Path | Format | Parsed fields |
-| --- | --- | --- |
-| /Vocabulary.txt | v1 JSON Lines | Unique ID, timestamp, headword, saved definition, book/author/series, chapter, page, spine, offset |
-| /My Clippings.txt | Kindle-style text blocks | Book/author, highlight body, chapter, page, optional local date |
+## Manual installation
 
-The browser reads them through the existing /download endpoint. Missing files are reported but do not prevent viewing the other tab. Use **Refresh from SD** to see changes made since you opened the page.
+Copy the **contents** of `vocabulary-highlights.crosspoint-plugin/` into one of the firmware's supported roots:
+
+- `/.crosspoint/plugins/vocabulary-highlights/` (recommended)
+- `/plugins/vocabulary-highlights/`
+- `/.plugins/vocabulary-highlights/`
+
+Alternatively, extract `dist/vocabulary-highlights-0.1.0.zip` into your preferred plugin root; its archive contains a `vocabulary-highlights/` folder.
+
+Enable **Settings → Connectivity → Plugins**. Run File Transfer/WebUI mode and open **Plugins → Vocabulary & Highlights** in a browser. Stock CrossPoint shows this payload's README on-device, because browser plugin JavaScript does not run on the e-ink display. Supported Razor-Crest firmware uses its native viewer and optional Home shortcut.
 
 ## Features
 
-- Separate Vocabulary and Highlights tabs, grouped by book (title **and** author).
-- Book sorting A–Z, Z–A or **Recently added** (latest recorded item).
-- Vocabulary sorting A–Z, Z–A, reading order (spine/chapter/page/offset), newest or oldest.
-- Highlight sorting by reading order, newest or oldest.
-- Search by book/title/author, word/definition or highlighted text.
-- Per-word statuses: **New** (default), **Learning** and **Mastered**.
-- Delete from list (soft delete) and **Show deleted → Restore entry**.
-- Paginated lists and responsive desktop/mobile layout, using the firmware's light/dark theme variables.
-- Handles UTF-8 and multiline definitions/highlights without interpreting their text as HTML.
+| Browser WebUI (CrossPoint and Razor-Crest) | Native reader UI (Razor-Crest) |
+| --- | --- |
+| Vocabulary and Highlights, grouped by book and author | Browse both exports offline, by book |
+| Search, sort, pagination, full definitions and passages | Sort book/entry lists, open saved details |
+| New / Learning / Mastered vocabulary statuses | Same vocabulary learning statuses |
+| Hide and restore words and highlights | Hide and restore words and highlights |
+| Hide books with zero visible records by default | Keep books visible for recovery even if all records are hidden |
 
-## Storage and safety
+**Native book counts include hidden entries.** A book with one hidden highlight still shows **1 highlight**, even if its visible entry list is empty. Use **Show deleted → Restore entry** on the device. In the WebUI, the book disappears until **Show hidden** is selected. This intentionally preserves the native restoration path.
 
-The plugin stores status changes and hidden-entry IDs in **/.crosspoint/vocabulary-highlights/state-v1.json**, separate from the installed plugin. It never stores copies of source definitions or highlights. Writes use the firmware's temporary-file replacement endpoint, refuse to overwrite unreadable or unsupported state, and stay below the 256 KiB endpoint limit.
+Razor-Crest implements native browsing in firmware, not in the plugin's browser JavaScript. The plugin manifest does not require this optional capability, because the WebUI works on stock CrossPoint.
 
-"Delete from list" **does not delete** data from /Vocabulary.txt, /My Clippings.txt, or the native clipping store. If the original export is regenerated or appended, stable IDs preserve existing status/hidden flags. Removing or upgrading the plugin does not intentionally remove the separate state directory. Back up the state file before resetting the SD card.
+## Source exports and saved state
 
-### Updating from the pre-release Vocabulary Builder test plugin
+The plugin reads the firmware's SD-root exports without rewriting them:
 
-The new plugin has a different install-folder identity. Copy **vocabulary-highlights/** into the SD plugin root and, after confirming it appears, remove the **old plugin install directory** at **/.crosspoint/plugins/vocabulary-builder/** (or **/plugins/vocabulary-builder/** if that is where it was installed) to avoid duplicate entries.
+| File | Content |
+| --- | --- |
+| `/Vocabulary.txt` | v1 JSON Lines: word IDs, definitions, and book/location data |
+| `/My Clippings.txt` | Kindle-style highlighting records, including page and optional chapter/date |
 
-**Do not delete** the previous learning-state directory **/.crosspoint/vocabulary-builder/**. If the new state file is absent, the renamed plugin reads the previous state automatically and carries those statuses and deleted-entry flags forward. The first successful status change or deletion saves a copy to **/.crosspoint/vocabulary-highlights/state-v1.json**; the previous state is retained as a backup. An existing new state always takes priority, including when it is unreadable, so it cannot be silently overwritten by the old state.
+Hide/delete actions change only versioned state at `/.crosspoint/vocabulary-highlights/state-v1.json`. If the new state does not exist, the earlier `/.crosspoint/vocabulary-builder/state-v1.json` can be migrated after the first edit; the old state is kept as a backup. Do not remove the old **state** directory when removing an obsolete Vocabulary Builder *plugin installation*.
 
-The export tracks **lookup time**, not synchronization time. **Recently added** is accurate; **Last sync** is intentionally not shown.
+WebUI state files can reach approximately **240 KiB**. The bounded native reader permits **8 KiB on no-PSRAM X3** and **24 KiB on other boards**; invalid or oversized state disables native editing instead of erasing progress. Large valid state remains editable via the WebUI.
 
-## Development and verification
+## Native limits and validation
 
-The repo intentionally has no firmware build. Requires Node 20+ only for testing:
+The native UI currently indexes at most **64 books / 192 selected-book entries** on X3, or **128 books / 512 entries** on other targets. Each scanned record has a 6 KiB cap, and incomplete appended records are ignored. These are deliberate RAM limits, not unlimited indexing.
 
-    npm test
-    npm run check
+Milestones 2–4 were reported **passed on Razor-Crest device firmware**. Hiding and restoring a book's only highlight was confirmed to synchronize with WebUI visibility. **Further testing is needed** for no-PSRAM X3, duplicate highlights, and large libraries before claiming broad device coverage.
 
-To run optional tests against local export files without adding them to Git, set VOCAB_SAMPLES_DIR to the folder containing Vocabulary.txt, Vocabulary (5).txt, and My Clippings.txt, then run npm test. Never commit personal vocabulary or clipping exports.
+## Development
 
-## Roadmap
+The plugin itself requires no firmware build. Run automated tests with Node.js 20+:
 
-The experimental Razor-Crest native adapter is developed separately in the Razor-Crest firmware worktree named **vocabulary-highlights-native**, requiring physical X3 and Picco/X4Pro validation before integration. The first native step browses vocabulary and clippings, supports book/entry sorting, and opens full definitions/highlights without Wi-Fi. It is **read-only**: Learning/Mastered and deletion remain available in the WebUI until a safe, shared on-device state editor is implemented. The first native step currently uses bounded limits (64 books/192 entries on X3, 128 books/512 entries on other boards); books exceeding them are not fully indexed. The native preview currently displays all source entries, including those hidden from the WebUI, until a shared state reader is added. It must not be described as a completed unlimited-size browser. Stock CrossPoint's device.json cannot run native JavaScript; its README fallback stays available.
+```sh
+npm run check
+```
+
+Optionally build a manual-install ZIP with Python 3 (standard library):
+
+```sh
+python tools/package_plugin.py
+```
+
+For tests against real exports, set `VOCAB_SAMPLES_DIR` to the local folder containing `Vocabulary.txt`, `Vocabulary (5).txt`, and `My Clippings.txt`. Never commit personal reading-history exports.
+
+## Automatic Plugin Hub publication (not yet performed)
+
+1. Publish this repository publicly and add the GitHub topic **`crosspoint-plugin`**.
+2. Keep exactly one direct-child `vocabulary-highlights.crosspoint-plugin/` payload directory.
+3. Create a non-draft, non-prerelease GitHub Release tagged **`v0.1.0`**, matching the installed manifest version.
+4. Wait for the scheduled Plugin Hub catalog scan (approximately every three hours), or request a manual refresh.
+
+No Plugin Hub pull request is needed for a conforming standalone repository. Publish a **new plugin version and release tag** for every subsequent runtime change; do not replace the bytes under an existing stable tag. See [Milestone 5 release checklist](docs/RELEASE_CHECKLIST.md).

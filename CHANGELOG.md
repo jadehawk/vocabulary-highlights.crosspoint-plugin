@@ -2,14 +2,21 @@
 
 ## 0.1.0 — First unreleased milestone
 
-- Tested successfully on stock CrossPoint X4 and Razor-Crest Picco.
-- Renamed the user-visible plugin, manifest identity, and SD folder to `vocabulary-highlights` before the first release.
-- Preserve learning progress from the earlier test folder with a safe legacy-state read fallback.
-- Add an optional device.json and Home shortcut for an experimental Razor-Crest native read-only viewer; stock CrossPoint keeps the README fallback.
-- Initial browser milestone:
+### Browser WebUI
+- Browse and search saved vocabulary JSONL and highlighted passages, grouped by book and author.
+- View saved definitions/highlights; sort, filter and paginate.
+- Save New/Learning/Mastered word statuses and reversible hide/restore flags to a separate versioned state file without rewriting source exports.
+- Preserve legacy Vocabulary Builder state through a safe read-only fallback and migration on the first successful edit.
+- Support stock CrossPoint and Razor-Crest through the standard browser plugin API.
 
-- Browse SD-root vocabulary JSONL and Kindle-style clipping exports by book.
-- View saved definitions and highlights; filter, search and sort.
-- Persist New / Learning / Mastered statuses and reversible deletions.
-- Use atomic firmware plugin-fs writes; leave both source exports untouched.
-- Support stock CrossPoint and Razor-Crest WebUI without firmware changes.
+### Optional Razor-Crest native UI
+- Device-side offline browser for both SD exports, including book/entry navigation, sorting and saved detail display.
+- Native word statuses and reversible word/highlight hiding, sharing the same state file with the browser.
+- Keep hidden-only books accessible on-device for recovery; native book totals count stored entries.
+- Retain bounded memory and state file limits; stock CrossPoint shows the plugin README on-device.
+
+### Plugin Hub release preparation (Milestone 5)
+- Reorganize the single installable payload as `vocabulary-highlights.crosspoint-plugin/`, matching Plugin Hub's automatic discovery convention while preserving installed ID `vocabulary-highlights`.
+- Keep runtime files explicitly declared in `manifest.json`; move no development files into the installed payload.
+- Add contract checks, update docs and provide a repeatable manual-install archive generator.
+- Keep version `0.1.0` because this plugin has not yet been publicly released.

@@ -4,7 +4,7 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const path = require('node:path');
 
-const pluginPath = path.resolve(__dirname, '../vocabulary-highlights/plugin.js');
+const pluginPath = path.resolve(__dirname, '../vocabulary-highlights.crosspoint-plugin/plugin.js');
 
 class FakeElement {
   constructor(tagName, text = '') {

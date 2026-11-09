@@ -563,7 +563,7 @@
         } else {
           actions.appendChild(btn('Delete from list', () => {
             if (typeof window !== 'undefined' && !window.confirm(
-              'Hide this entry from Vocabulary Builder? The original SD-card export will remain unchanged.')) return;
+              'Hide this entry from Vocabulary & Highlights? The original SD-card export will remain unchanged.')) return;
             persist(next => { next.hidden[selected.id] = true; });
           }, 'vb-danger', busy || readOnly));
         }

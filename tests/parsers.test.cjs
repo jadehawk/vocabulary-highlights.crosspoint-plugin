@@ -5,7 +5,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const plugin = require('../vocabulary-highlights/plugin.js');
+const plugin = require('../vocabulary-highlights.crosspoint-plugin/plugin.js');
 
 function record(overrides = {}) {
   return {
@@ -110,6 +110,20 @@ test('multiple clips and duplicate IDs remain stable after an append', () => {
   assert.equal(new Set(before.entries.map(e => e.id)).size, 2);
   assert.equal(after.entries.length, 3);
   assert.equal(after.invalid, 0);
+});
+
+test('duplicate highlights have independent reversible hidden IDs', () => {
+  const block = 'Repeated (Author)\n- Your Highlight on Page 7 | Chapter 2\n\nA repeated sentence.\n==========\n';
+  const parsed = plugin.parseClippings(block + block).entries;
+  assert.equal(parsed.length, 2);
+  assert.match(parsed[0].id, /^clip:[a-f0-9]{16}:1$/);
+  assert.equal(parsed[1].id, parsed[0].id.replace(/:1$/, ':2'));
+  const state = plugin.normalizeState({ version: 1, statuses: {}, hidden: { [parsed[0].id]: true } });
+  assert.equal(state.hidden[parsed[0].id], true);
+  assert.equal(state.hidden[parsed[1].id], undefined, 'hiding one must preserve the other');
+  delete state.hidden[parsed[0].id];
+  assert.equal(Object.keys(state.hidden).length, 0, 'restoring one does not rewrite the export');
+  assert.equal(plugin.parseClippings(block + block + block).entries[1].id, parsed[1].id);
 });
 
 test('clip parser ignores incomplete tail and malformed separators without inventing records', () => {
