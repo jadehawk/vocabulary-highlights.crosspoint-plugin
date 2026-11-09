@@ -1,9 +1,11 @@
 Vocabulary & Highlights
 
-This plugin works in the browser-based CrossPoint WebUI.
-Open the device's File Transfer / WebUI mode, then choose Plugins
-and Vocabulary & Highlights. It does not create a native reader screen
-on stock CrossPoint.
+The full plugin runs in the browser-based CrossPoint WebUI.
+Open File Transfer / WebUI mode, then choose Plugins and
+Vocabulary & Highlights. Stock CrossPoint shows this README on-device.
+Experimental Razor-Crest firmware with ui.local-notes.v1 can
+also browse saved words and highlights offline on the reader.
+Native learning-status and deletion editing are not supported yet.
 
 It reads these files from the root of the SD card:
   /Vocabulary.txt

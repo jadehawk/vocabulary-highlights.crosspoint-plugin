@@ -1,12 +1,12 @@
 # Vocabulary & Highlights for CrossPoint
 
-An SD-card plugin for browsing previously looked-up words and saved highlights. Version **0.1.0** is a **browser-based WebUI plugin**, compatible with stock CrossPoint and Razor-Crest. Native on-device screens are planned separately and are **not** implemented by this version.
+An SD-card plugin for browsing previously looked-up words and saved highlights. Version **0.1.0** supports the browser-based WebUI on stock CrossPoint and Razor-Crest. A separate experimental Razor-Crest firmware adapter can additionally open an **offline, on-device read-only viewer**; stock CrossPoint continues to show the on-device README.
 
 ## Installation
 
 Copy the complete **vocabulary-highlights/** payload folder to **/.crosspoint/plugins/vocabulary-highlights/** (recommended) or **/plugins/vocabulary-highlights/**.
 
-Enable **Settings → Connectivity → Plugins** on the reader. Start the device's Wi-Fi File Transfer / WebUI mode and open **Plugins → Vocabulary & Highlights** in your phone or desktop browser. The on-device Plugins list displays the bundled README, because stock firmware cannot execute browser JavaScript as a native e-ink screen.
+Enable **Settings → Connectivity → Plugins** on the reader. Start the device's Wi-Fi File Transfer / WebUI mode and open **Plugins → Vocabulary & Highlights** in your phone or desktop browser. On stock CrossPoint the device's plugin picker displays the README. With the optional Razor-Crest **ui.local-notes.v1** firmware adapter installed, the device picker launches a native, offline vocabulary/highlight viewer. The optional Home shortcut is shown only by firmware that supports this adapter.
 
 The plugin requires the normal CrossPoint WebUI endpoints. It needs no Internet service, API token or account; your browser communicates directly with the reader over the local network.
 
@@ -58,4 +58,4 @@ To run optional tests against local export files without adding them to Git, set
 
 ## Roadmap
 
-Razor-Crest's native offline e-ink browser requires a **new capability-gated firmware activity** that can read the same exports and the plugin's state file. It must be designed and verified independently on X3 / X4Pro. Stock CrossPoint's device.json does not support arbitrary local SD-file browsing or native JavaScript execution. The future native adapter will use the same file schema and avoid changing the web plugin experience.
+The experimental Razor-Crest native adapter is developed separately in the Razor-Crest firmware worktree named **vocabulary-highlights-native**, requiring physical X3 and Picco/X4Pro validation before integration. The first native step browses vocabulary and clippings, supports book/entry sorting, and opens full definitions/highlights without Wi-Fi. It is **read-only**: Learning/Mastered and deletion remain available in the WebUI until a safe, shared on-device state editor is implemented. The first native step currently uses bounded limits (64 books/192 entries on X3, 128 books/512 entries on other boards); books exceeding them are not fully indexed. The native preview currently displays all source entries, including those hidden from the WebUI, until a shared state reader is added. It must not be described as a completed unlimited-size browser. Stock CrossPoint's device.json cannot run native JavaScript; its README fallback stays available.

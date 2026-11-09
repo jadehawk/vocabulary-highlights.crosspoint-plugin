@@ -17,5 +17,7 @@ compatible firmware.
 on-device plugin screen. To use it, open the device WebUI in a browser
 while the firmware's WebUI/File Transfer mode is running.
 
-Razor-Crest native on-device screens are a separate future integration
-and are not included in this plugin version.
+Experimental Razor-Crest firmware with ui.local-notes.v1 can launch
+an offline native vocabulary/highlights reader from device.json, with
+basic book and entry sorting and saved definition/passage viewing.
+Native editing and unbounded indexing are not yet implemented.

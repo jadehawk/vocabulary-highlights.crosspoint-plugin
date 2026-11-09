@@ -17,6 +17,14 @@ test('plugin manifest is installable on stock CrossPoint', () => {
   assert.equal(manifest.mount, 'settings');
   assert.equal(manifest.compatibility?.requires, undefined, 'stock firmware must not be blocked');
   assert.ok(manifest.files.includes('plugin.js'));
+  assert.ok(manifest.files.includes('device.json'));
+  assert.equal(manifest.home_shortcut.label, 'Vocabulary & Highlights');
+  assert.equal(manifest.home_shortcut.target, 'dashboard');
+  const device = JSON.parse(fs.readFileSync(path.join(payload, 'device.json'), 'utf8'));
+  assert.equal(device.local_library.source, 'vocabulary-highlights.v1');
+  assert.equal(device.local_library.vocabulary_path, '/Vocabulary.txt');
+  assert.equal(device.local_library.clippings_path, '/My Clippings.txt');
+  assert.equal(device.browse, undefined, 'stock firmware must fall back to README');
   assert.ok(manifest.files.includes('style.css'));
   for (const file of manifest.files) {
     assert.ok(!file.includes('..') && !file.startsWith('/'), 'manifest path is relative');

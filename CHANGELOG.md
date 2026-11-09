@@ -5,6 +5,7 @@
 - Tested successfully on stock CrossPoint X4 and Razor-Crest Picco.
 - Renamed the user-visible plugin, manifest identity, and SD folder to `vocabulary-highlights` before the first release.
 - Preserve learning progress from the earlier test folder with a safe legacy-state read fallback.
+- Add an optional device.json and Home shortcut for an experimental Razor-Crest native read-only viewer; stock CrossPoint keeps the README fallback.
 - Initial browser milestone:
 
 - Browse SD-root vocabulary JSONL and Kindle-style clipping exports by book.

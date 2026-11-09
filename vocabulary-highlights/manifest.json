@@ -5,8 +5,14 @@
   "description": "Browse saved vocabulary and highlights, sort by book, and track learning progress.",
   "author": "Jadehawk",
   "version": "0.1.0",
+  "home_shortcut": {
+    "label": "Vocabulary & Highlights",
+    "target": "dashboard",
+    "icon": "library"
+  },
   "files": [
     "manifest.json",
+    "device.json",
     "plugin.js",
     "style.css",
     "README.md",
