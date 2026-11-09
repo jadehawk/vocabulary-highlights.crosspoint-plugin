@@ -21,7 +21,7 @@ The authoritative publishing rules are [PLUGIN_HUB_CONTRACT.md](https://github.c
 - [x] Browser WebUI tests, including reversible hides and legacy-state handling
 - [x] Tested isolated duplicate highlight identity and independent tombstones in browser parser
 - [x] Corrected README, installable README, rich details and CHANGELOG
-- [ ] Physically validate native X3 with no PSRAM
+- [x] Physically validate native X3 with no PSRAM — user reported X3 device tests passed (2026-11-09)
 - [ ] Physically validate two **identical** highlights in one book, hide one and restore it without changing the other
 - [ ] Exercise a library larger than native book/entry caps; confirm the UI reports its limits
 - [ ] Test oversized valid native state (>8 KiB on X3, >24 KiB elsewhere) leaves browser editing usable
