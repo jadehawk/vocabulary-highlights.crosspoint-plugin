@@ -1,0 +1,15 @@
+{
+  "name": "vocabulary-highlights",
+  "title": "Vocabulary & Highlights",
+  "mount": "settings",
+  "description": "Browse saved vocabulary and highlights, sort by book, and track learning progress.",
+  "author": "Jadehawk",
+  "version": "0.1.0",
+  "files": [
+    "manifest.json",
+    "plugin.js",
+    "style.css",
+    "README.md",
+    "DETAILS.md"
+  ]
+}

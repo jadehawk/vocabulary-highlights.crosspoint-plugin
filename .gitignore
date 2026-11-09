@@ -1,0 +1,8 @@
+dist/
+node_modules/
+coverage/
+*.log
+.vscode/
+.idea/
+state-v1.json
+.DS_Store

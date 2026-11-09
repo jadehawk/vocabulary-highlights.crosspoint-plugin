@@ -1,0 +1,13 @@
+{
+  "name": "vocabulary-highlights-crosspoint-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CrossPoint WebUI vocabulary and highlights plugin",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check vocabulary-highlights/plugin.js && node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
