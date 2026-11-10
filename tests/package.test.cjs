@@ -22,7 +22,7 @@ test('Plugin Hub discovery contract: exactly one direct-child payload matches ma
   assert.equal(manifest.title, 'Vocabulary & Highlights');
   assert.equal(manifest.mount, 'settings');
   assert.equal(manifest.compatibility?.requires, undefined,
-    'stock firmware must not be blocked by optional native UI capabilities');
+    'browser-only firmware must not be blocked by optional native UI capabilities');
   assert.equal(manifest.home_shortcut.label, 'Vocabulary & Highlights');
   assert.equal(manifest.home_shortcut.target, 'dashboard');
 });
@@ -51,14 +51,25 @@ test('Plugin Hub payload explicitly declares only present, safe runtime files', 
   assert.ok(!manifest.files.includes('package.json'), 'development tooling stays at repository root');
 });
 
-test('on-reader plugin stays compatible with stock CrossPoint README fallback', () => {
+test('on-reader plugin supports README fallback when native integration is unavailable', () => {
   assert.ok(fs.statSync(path.join(payload, 'README.md')).size < 16 * 1024);
   const device = JSON.parse(fs.readFileSync(path.join(payload, 'device.json'), 'utf8'));
   assert.equal(device.local_library.source, 'vocabulary-highlights.v1');
   assert.equal(device.local_library.vocabulary_path, '/Vocabulary.txt');
   assert.equal(device.local_library.clippings_path, '/My Clippings.txt');
-  assert.equal(device.browse, undefined, 'stock firmware must fall back to README');
+  assert.equal(device.browse, undefined, 'on-device catalog falls back to README without a browse feed');
   assert.ok(fs.statSync(path.join(payload, 'device.json')).size < 8 * 1024);
+});
+
+test('user-facing documentation and plugin UI remain firmware-neutral', () => {
+  for (const filename of ['README.md', 'CHANGELOG.md', 'docs/RELEASE_CHECKLIST.md',
+    'vocabulary-highlights.crosspoint-plugin/README.md',
+    'vocabulary-highlights.crosspoint-plugin/DETAILS.md',
+    'vocabulary-highlights.crosspoint-plugin/plugin.js']) {
+    const content = fs.readFileSync(path.join(repo, filename), 'utf8');
+    assert.doesNotMatch(content, /Razor-Crest|stock CrossPoint|compatible forks/i,
+      'firmware-specific branding in ' + filename);
+  }
 });
 
 test('browser plugin registers synchronously without requiring another script', () => {

@@ -1,6 +1,6 @@
-# Vocabulary & Highlights — CrossPoint plugin
+﻿# Vocabulary & Highlights â€” CrossPoint plugin
 
-An SD-card plugin for reviewing saved words and highlighted passages from CrossPoint readers. The browser WebUI works on stock CrossPoint and compatible Razor-Crest firmware. Razor-Crest additionally offers a native offline reader UI with firmware capability `ui.local-notes.v1`.
+An SD-card plugin for reviewing saved words and highlighted passages on readers implementing the CrossPoint plugin API. Its browser WebUI works with compatible firmware. Offline, on-device browsing and editing are optional enhancements when the host firmware implements `ui.local-notes.v1`.
 
 **Release status:** Version **0.1.0**, first public release not yet published. No Internet service, account, or API key is required for normal use.
 
@@ -38,11 +38,11 @@ Copy the **contents** of `vocabulary-highlights.crosspoint-plugin/` into one of 
 
 Alternatively, extract `dist/vocabulary-highlights-0.1.0.zip` into your preferred plugin root; its archive contains a `vocabulary-highlights/` folder.
 
-Enable **Settings → Connectivity → Plugins**. Run File Transfer/WebUI mode and open **Plugins → Vocabulary & Highlights** in a browser. Stock CrossPoint shows this payload's README on-device, because browser plugin JavaScript does not run on the e-ink display. Supported Razor-Crest firmware uses its native viewer and optional Home shortcut.
+Enable **Settings â†’ Connectivity â†’ Plugins**. Run File Transfer/WebUI mode and open **Plugins â†’ Vocabulary & Highlights** in a browser. Without the optional native interface, the on-device plugin entry displays the included README: browser JavaScript does not run on the e-ink display. When `ui.local-notes.v1` is implemented by the host firmware, the device can instead open an offline viewer with optional Home shortcut.
 
 ## Features
 
-| Browser WebUI (CrossPoint and Razor-Crest) | Native reader UI (Razor-Crest) |
+| Browser WebUI (standard plugin API) | Optional native reader UI (`ui.local-notes.v1`) |
 | --- | --- |
 | Vocabulary and Highlights, grouped by book and author | Browse both exports offline, by book |
 | Search, sort, pagination, full definitions and passages | Sort book/entry lists, open saved details |
@@ -50,9 +50,9 @@ Enable **Settings → Connectivity → Plugins**. Run File Transfer/WebUI mode a
 | Hide and restore words and highlights | Hide and restore words and highlights |
 | Hide books with zero visible records by default | Keep books visible for recovery even if all records are hidden |
 
-**Native book counts include hidden entries.** A book with one hidden highlight still shows **1 highlight**, even if its visible entry list is empty. Use **Show deleted → Restore entry** on the device. In the WebUI, the book disappears until **Show hidden** is selected. This intentionally preserves the native restoration path.
+**Native book counts include hidden entries.** A book with one hidden highlight still shows **1 highlight**, even if its visible entry list is empty. Use **Show deleted â†’ Restore entry** on the device. In the WebUI, the book disappears until **Show hidden** is selected. This intentionally preserves the native restoration path.
 
-Razor-Crest implements native browsing in firmware, not in the plugin's browser JavaScript. The plugin manifest does not require this optional capability, because the WebUI works on stock CrossPoint.
+Native browsing is provided by capable host firmware, not by executing browser JavaScript on the reader. The plugin manifest intentionally does not require the optional native capability, so browser functionality remains available on compatible firmware without it.
 
 ## Source exports and saved state
 
@@ -71,7 +71,7 @@ WebUI state files can reach approximately **240 KiB**. The bounded native reader
 
 The native UI currently indexes at most **64 books / 192 selected-book entries** on X3, or **128 books / 512 entries** on other targets. Each scanned record has a 6 KiB cap, and incomplete appended records are ignored. These are deliberate RAM limits, not unlimited indexing.
 
-Milestones 2–4 were reported **passed on Razor-Crest device firmware**. Hiding and restoring a book's only highlight was confirmed to synchronize with WebUI visibility. **Further testing is needed** for no-PSRAM X3, duplicate highlights, and large libraries before claiming broad device coverage.
+Native browsing and editing passed device testing, including on an X3 without PSRAM. Hiding and restoring a book's only highlight was confirmed to synchronize with WebUI visibility. **Further testing is needed** for identical duplicate highlights, oversized saved state, and large libraries before claiming broad device coverage.
 
 ## Development
 

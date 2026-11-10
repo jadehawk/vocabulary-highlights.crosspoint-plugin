@@ -1,4 +1,4 @@
-/* Vocabulary & Highlights — browser plugin for stock CrossPoint and compatible forks. */
+/* Vocabulary & Highlights — browser UI for firmware implementing the CrossPoint plugin API. */
 (function () {
   'use strict';
 
@@ -574,7 +574,7 @@
       }
       grid.appendChild(detail);
       root.appendChild(grid);
-      root.appendChild(el('p', 'vb-foot', 'Works in the device WebUI on stock CrossPoint and Razor-Crest. ' +
+      root.appendChild(el('p', 'vb-foot', 'Works in the device WebUI on compatible firmware. ' +
         'This browser view does not run on the e-reader screen.'));
       if (hadSearch) {
         const nextSearch = root.querySelector('[data-vb-search]');

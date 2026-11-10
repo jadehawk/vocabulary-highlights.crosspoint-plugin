@@ -11,13 +11,13 @@ The authoritative publishing rules are [PLUGIN_HUB_CONTRACT.md](https://github.c
 - [x] `manifest.json` uses numeric `0.1.0` and declares every installed runtime file
 - [x] Contains `manifest.json` and both `plugin.js` and `device.json`
 - [x] Tests, build helpers and developer documents live **outside** the payload
-- [x] No hard native-only capability requirement in the manifest; stock CrossPoint WebUI remains installable
+- [x] No hard native-only capability requirement in the manifest; standard browser WebUI remains installable on compatible firmware
 - [x] Reproducible **optional manual-install ZIP** at `dist/vocabulary-highlights-0.1.0.zip`, with the **device install folder** `vocabulary-highlights/` as ZIP root
 - [x] Existing on-device state paths remain unchanged
 
 ## Verification before first stable release
 
-- [x] Device-tested native milestones 2–4 reported successful on Razor-Crest
+- [x] Device-tested optional native milestones 2–4 reported successful
 - [x] Browser WebUI tests, including reversible hides and legacy-state handling
 - [x] Tested isolated duplicate highlight identity and independent tombstones in browser parser
 - [x] Corrected README, installable README, rich details and CHANGELOG
@@ -43,4 +43,4 @@ The browser and packaging checks are not substitutes for unperformed hardware te
 
 ## User-visible behavior
 
-Razor-Crest intentionally retains a book with its only entry hidden, showing its *stored total* and allowing **Show deleted → Restore entry**. WebUI hides such books by default, but **Show hidden** brings them back. Consider a clearer count label later, after hardware checks; do not remove the only on-device restoration path.
+The optional native viewer retains a book with its only entry hidden, showing its *stored total* and allowing **Show deleted → Restore entry**. WebUI hides such books by default, but **Show hidden** brings them back. Consider a clearer count label later, after hardware checks; do not remove the only on-device restoration path.

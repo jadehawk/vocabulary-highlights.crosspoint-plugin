@@ -7,13 +7,13 @@
 - View saved definitions/highlights; sort, filter and paginate.
 - Save New/Learning/Mastered word statuses and reversible hide/restore flags to a separate versioned state file without rewriting source exports.
 - Preserve legacy Vocabulary Builder state through a safe read-only fallback and migration on the first successful edit.
-- Support stock CrossPoint and Razor-Crest through the standard browser plugin API.
+- Support compatible firmware through the standard browser plugin API.
 
-### Optional Razor-Crest native UI
+### Optional native UI (`ui.local-notes.v1`)
 - Device-side offline browser for both SD exports, including book/entry navigation, sorting and saved detail display.
 - Native word statuses and reversible word/highlight hiding, sharing the same state file with the browser.
 - Keep hidden-only books accessible on-device for recovery; native book totals count stored entries.
-- Retain bounded memory and state file limits; stock CrossPoint shows the plugin README on-device.
+- Retain bounded memory and state file limits; hosts without native integration show the plugin README on-device.
 
 ### Plugin Hub release preparation (Milestone 5)
 - Reorganize the single installable payload as `vocabulary-highlights.crosspoint-plugin/`, matching Plugin Hub's automatic discovery convention while preserving installed ID `vocabulary-highlights`.

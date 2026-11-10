@@ -2,11 +2,11 @@ Vocabulary & Highlights
 
 Browser WebUI:
 Enable File Transfer / WebUI and open Plugins ->
-Vocabulary & Highlights. This works on stock CrossPoint.
-On stock firmware, this README appears in the on-device
+Vocabulary & Highlights on compatible firmware.
+Without optional native support, this README appears in the on-device
 plugin list; browser JavaScript does not run on the reader.
 
-Razor-Crest native viewer (supported firmware):
+Optional native viewer (firmware with ui.local-notes.v1):
 Browse Vocabulary and Highlights without Wi-Fi. Open a book,
 select a saved word or highlight, and view the saved details.
 Long-press an entry (or hold Select on button-only readers)
