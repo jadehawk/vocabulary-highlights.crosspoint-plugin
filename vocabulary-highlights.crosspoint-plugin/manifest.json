@@ -2,7 +2,7 @@
   "name": "vocabulary-highlights",
   "title": "Vocabulary & Highlights",
   "mount": "settings",
-  "description": "Browse saved vocabulary and highlights, sort by book, and track learning progress.",
+  "description": "Open the WebUI to review words and highlights.",
   "author": "Jadehawk",
   "version": "0.1.0",
   "home_shortcut": {

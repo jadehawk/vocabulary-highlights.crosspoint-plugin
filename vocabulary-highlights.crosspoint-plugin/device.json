@@ -1,6 +1,6 @@
 {
   "title": "Vocabulary & Highlights",
-  "description": "Browse locally saved words and highlighted passages",
+  "description": "Open the WebUI to review words and highlights",
   "local_library": {
     "source": "vocabulary-highlights.v1",
     "vocabulary_path": "/Vocabulary.txt",

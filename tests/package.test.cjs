@@ -61,6 +61,22 @@ test('on-reader plugin supports README fallback when native integration is unava
   assert.ok(fs.statSync(path.join(payload, 'device.json')).size < 8 * 1024);
 });
 
+test('on-device fallback and Hub details contain only WebUI guidance', () => {
+  for (const file of ['README.md', 'DETAILS.md']) {
+    const content = fs.readFileSync(path.join(payload, file), 'utf8');
+    assert.match(content, /File Transfer \/ WebUI/i);
+    assert.match(content, /Plugins\s*->\s*Vocabulary & Highlights/i);
+    assert.doesNotMatch(content, /native|long-press|show deleted|restore entry|state-v1|X3/i,
+      file + ' must not instruct users about unsupported on-device features');
+    assert.ok(Buffer.byteLength(content, 'utf8') < 1024,
+      file + ' should be concise for e-ink screens');
+  }
+  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+  const device = JSON.parse(fs.readFileSync(path.join(payload, 'device.json'), 'utf8'));
+  assert.match(manifest.description, /WebUI/);
+  assert.match(device.description, /WebUI/);
+});
+
 test('user-facing documentation and plugin UI remain firmware-neutral', () => {
   for (const filename of ['README.md', 'CHANGELOG.md', 'docs/RELEASE_CHECKLIST.md',
     'vocabulary-highlights.crosspoint-plugin/README.md',
