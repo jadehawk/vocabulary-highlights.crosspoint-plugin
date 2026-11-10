@@ -4,6 +4,14 @@ An SD-card plugin for reviewing saved words and highlighted passages on readers 
 
 **Release status:** Version **0.1.0**, first public release not yet published. No Internet service, account, or API key is required for normal use.
 
+## Screenshots
+
+Screenshots are grouped by interface: CrossPoint's on-device plugin screens, the shared browser WebUI, and the optional native viewer currently available on Razor-Crest.
+
+![Vocabulary & Highlights contact sheet: CrossPoint, shared WebUI, and Razor-Crest native viewer](docs/screenshots/contact-sheet.jpg)
+
+Full-resolution originals: [CrossPoint](docs/screenshots/originals/crosspoint/) | [Shared WebUI](docs/screenshots/originals/webui/) | [Razor-Crest](docs/screenshots/originals/razor-crest/).
+
 ## Plugin Hub repository layout
 
 This repository follows the [official Plugin Hub publishing contract](https://github.com/crosspoint-reader/crosspoint-plugin-hub/blob/main/PLUGIN_HUB_CONTRACT.md):

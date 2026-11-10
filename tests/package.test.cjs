@@ -91,7 +91,15 @@ test('user-facing documentation and plugin UI remain firmware-neutral', () => {
     'vocabulary-highlights.crosspoint-plugin/DETAILS.md',
     'vocabulary-highlights.crosspoint-plugin/plugin.js']) {
     const content = fs.readFileSync(path.join(repo, filename), 'utf8');
-    assert.doesNotMatch(content, /Razor-Crest|stock CrossPoint|compatible forks/i,
+    // Screenshots depict actual interfaces; the plugin itself stays neutral.
+    let neutralContent = content;
+    if (filename === 'README.md') {
+      const start = content.indexOf('## Screenshots');
+      const end = content.indexOf('## Plugin Hub repository layout', start);
+      assert.ok(start !== -1 && end > start, 'screenshot gallery must be bounded');
+      neutralContent = content.slice(0, start) + content.slice(end);
+    }
+    assert.doesNotMatch(neutralContent, /Razor-Crest|stock CrossPoint|compatible forks/i,
       'firmware-specific branding in ' + filename);
   }
 });
