@@ -1,7 +1,7 @@
-Vocabulary & Highlights
+To access this plugin:
 
-To use this plugin, open File Transfer / WebUI on
-your reader. On your phone or computer, open
-the device's WebUI and select:
-
-Plugins -> Vocabulary & Highlights
+1. Open File Transfer.
+2. Select Join a Network or Create Hotspot.
+3. Open the WebUI address shown on the reader
+   using a phone or computer.
+4. Select Plugins -> Vocabulary & Highlights.

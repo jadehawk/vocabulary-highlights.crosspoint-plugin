@@ -62,9 +62,17 @@ test('on-reader plugin supports README fallback when native integration is unava
 });
 
 test('on-device fallback and Hub details contain only WebUI guidance', () => {
+  const fallback = fs.readFileSync(path.join(payload, 'README.md'), 'utf8');
+  assert.match(fallback, /^To access this plugin:/);
+  assert.match(fallback, /1\. Open File Transfer\./);
+  assert.match(fallback, /Join a Network or Create Hotspot/);
+  assert.match(fallback, /WebUI address shown on the reader/);
+  assert.doesNotMatch(fallback, /^Vocabulary & Highlights\s*$/m,
+    'firmware already displays the plugin title above its instructions');
+  const details = fs.readFileSync(path.join(payload, 'DETAILS.md'), 'utf8');
+  assert.match(details, /File Transfer \/ WebUI/i);
   for (const file of ['README.md', 'DETAILS.md']) {
     const content = fs.readFileSync(path.join(payload, file), 'utf8');
-    assert.match(content, /File Transfer \/ WebUI/i);
     assert.match(content, /Plugins\s*->\s*Vocabulary & Highlights/i);
     assert.doesNotMatch(content, /native|long-press|show deleted|restore entry|state-v1|X3/i,
       file + ' must not instruct users about unsupported on-device features');
