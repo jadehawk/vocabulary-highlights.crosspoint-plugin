@@ -72,6 +72,15 @@ test('user-facing documentation and plugin UI remain firmware-neutral', () => {
   }
 });
 
+test('repository README uses an ASCII title with no BOM or mojibake', () => {
+  const bytes = fs.readFileSync(path.join(repo, 'README.md'));
+  assert.notDeepEqual([...bytes.subarray(0, 3)], [0xef, 0xbb, 0xbf],
+    'README must not start with a UTF-8 BOM');
+  const text = bytes.toString('utf8');
+  assert.equal(text.split(/\r?\n/, 1)[0], '# Vocabulary & Highlights - CrossPoint plugin');
+  assert.doesNotMatch(text, /â€”|â€“|Ã./u, 'README contains misdecoded UTF-8');
+});
+
 test('browser plugin registers synchronously without requiring another script', () => {
   let handler = null;
   global.CrossPoint = { registerPlugin(fn) { handler = fn; } };

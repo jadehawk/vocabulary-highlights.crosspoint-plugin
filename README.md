@@ -1,4 +1,4 @@
-﻿# Vocabulary & Highlights â€” CrossPoint plugin
+# Vocabulary & Highlights - CrossPoint plugin
 
 An SD-card plugin for reviewing saved words and highlighted passages on readers implementing the CrossPoint plugin API. Its browser WebUI works with compatible firmware. Offline, on-device browsing and editing are optional enhancements when the host firmware implements `ui.local-notes.v1`.
 
