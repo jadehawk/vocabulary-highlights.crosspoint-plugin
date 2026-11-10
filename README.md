@@ -88,12 +88,3 @@ python tools/package_plugin.py
 ```
 
 For tests against real exports, set `VOCAB_SAMPLES_DIR` to the local folder containing `Vocabulary.txt`, `Vocabulary (5).txt`, and `My Clippings.txt`. Never commit personal reading-history exports.
-
-## Automatic Plugin Hub publication (not yet performed)
-
-1. Publish this repository publicly and add the GitHub topic **`crosspoint-plugin`**.
-2. Keep exactly one direct-child `vocabulary-highlights.crosspoint-plugin/` payload directory.
-3. Create a non-draft, non-prerelease GitHub Release tagged **`v0.1.0`**, matching the installed manifest version.
-4. Wait for the scheduled Plugin Hub catalog scan (approximately every three hours), or request a manual refresh.
-
-No Plugin Hub pull request is needed for a conforming standalone repository. Publish a **new plugin version and release tag** for every subsequent runtime change; do not replace the bytes under an existing stable tag. See [Milestone 5 release checklist](docs/RELEASE_CHECKLIST.md).
