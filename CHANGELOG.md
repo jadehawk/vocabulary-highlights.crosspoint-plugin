@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0 — First unreleased milestone
+## 0.1.0 — First public release
 
 ### Browser WebUI
 - Browse and search saved vocabulary JSONL and highlighted passages, grouped by book and author.
@@ -19,4 +19,4 @@
 - Reorganize the single installable payload as `vocabulary-highlights.crosspoint-plugin/`, matching Plugin Hub's automatic discovery convention while preserving installed ID `vocabulary-highlights`.
 - Keep runtime files explicitly declared in `manifest.json`; move no development files into the installed payload.
 - Add contract checks, update docs and provide a repeatable manual-install archive generator.
-- Keep version `0.1.0` because this plugin has not yet been publicly released.
+- Publish the first stable GitHub Release as `v0.1.0` for Plugin Hub discovery.

@@ -29,12 +29,12 @@ The authoritative publishing rules are [PLUGIN_HUB_CONTRACT.md](https://github.c
 
 The browser and packaging checks are not substitutes for unperformed hardware tests.
 
-## Publishing — repository setup complete; stable Release not yet published
+## Publishing — first stable release v0.1.0
 
 - [x] Create public repository: [jadehawk/vocabulary-highlights.crosspoint-plugin](https://github.com/jadehawk/vocabulary-highlights.crosspoint-plugin)
 - [x] Add repository topic `crosspoint-plugin` for discovery
 - [x] Commit and push the verified payload and development files to GitHub
-- [ ] Publish the first **non-draft, non-prerelease** Release tagged `v0.1.0`, matching the payload manifest
+- [x] Publish the first **non-draft, non-prerelease** Release tagged `v0.1.0`, matching the payload manifest
 - [ ] Wait for the scheduled Hub catalog refresh (every three hours) or trigger a maintainer refresh
 - [ ] Confirm the plugin is visible in **Community Plugins**, installs all declared files, and displays optional DETAILS content
 - [ ] Check updates preserve separately stored `/.crosspoint/vocabulary-highlights/state-v1.json`

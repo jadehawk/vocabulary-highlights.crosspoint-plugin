@@ -2,7 +2,7 @@
 
 An SD-card plugin for reviewing saved words and highlighted passages on readers implementing the CrossPoint plugin API. Its browser WebUI works with compatible firmware. Offline, on-device browsing and editing are optional enhancements when the host firmware implements `ui.local-notes.v1`.
 
-**Release status:** Version **0.1.0**, first public release not yet published. No Internet service, account, or API key is required for normal use.
+**Release status:** Stable **v0.1.0** (first public release). No Internet service, account, or API key is required for normal use.
 
 ## Screenshots
 
