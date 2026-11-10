@@ -574,8 +574,6 @@
       }
       grid.appendChild(detail);
       root.appendChild(grid);
-      root.appendChild(el('p', 'vb-foot', 'Works in the device WebUI on compatible firmware. ' +
-        'This browser view does not run on the e-reader screen.'));
       if (hadSearch) {
         const nextSearch = root.querySelector('[data-vb-search]');
         if (nextSearch) {

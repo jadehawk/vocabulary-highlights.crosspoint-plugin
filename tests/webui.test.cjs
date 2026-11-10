@@ -113,6 +113,8 @@ test('browser UI reads both exports, persists statuses and reversible deletions 
   };
   const host = new FakeElement('main');
   await render(host, api);
+  assert.equal(walk(host).some(node => node.className === 'vb-foot'), false,
+    'WebUI should not display a redundant environment footer');
 
   assert.match(host.textContent, /Vocabulary \(1\)/);
   assert.match(host.textContent, /Highlights \(1\)/);
